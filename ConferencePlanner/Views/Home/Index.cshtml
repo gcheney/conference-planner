@@ -1,0 +1,33 @@
+﻿@using ConferencePlanner.Controllers;
+@model ConferencePlanner.Models.IndexViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h3>Conferences this month</h3>
+    </div>
+</div>
+
+@foreach (var conference in Model.Conferences)
+{
+    <div class="row conference-item" ng-controller="ConferenceListItemController as item"
+         data-url='@Model.FlagAttendanceUrl' 
+         data-conference='@Html.Raw(Json.Encode(conference))'>
+        <div class="col-sm-12">
+            <h4>{{item.name}}</h4>
+            <p>{{item.startDate}}, {{item.location}}</p>
+            <p>{{item.description}}</p>
+            <p class="attendees-text">
+                <span class="attendee-count">
+                    {{item.attendeeCount}}
+                </span>
+                people going
+                (<a href="#" ng-click="item.flagAttendance()">
+                    I'm going
+                </a>)
+            </p>
+        </div>
+    </div>
+}
